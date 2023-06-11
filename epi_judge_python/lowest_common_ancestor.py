@@ -10,8 +10,21 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    # the LCA is the node at which node0 and node1 are in different subtrees
+    if tree == node0 or tree == node1:
+        return tree
+    
+    left = right = None
+
+    if tree.left:
+        left = lca(tree.left, node0, node1)
+    if tree.right:
+        right = lca(tree.right, node0, node1)
+
+    if left and right:
+        return tree
+    else:
+        return left or right
 
 
 @enable_executor_hook
